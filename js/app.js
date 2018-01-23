@@ -5,7 +5,7 @@ const students = document.getElementsByClassName("student-item");
 const hideStudents = () => {
 	for (let i = 0; i < students.length; i++) {
 		const student = students[i];
-			student.style.display = "none";
+		student.style.display = "none";
 	}
 	calcNumPages();
 }
@@ -13,7 +13,7 @@ const hideStudents = () => {
 // calculate number of pages to create
 const calcNumPages = () => {
 	let numOfPages;
-	// if dividing the number of students by 10 leaves a remainder
+	// if dividing the number of students by 10 leaves no remainder
 	if(students.length % 10 === 0){
 		numOfPages = students.length / 10;
 	} else {
@@ -58,45 +58,36 @@ const createPageButtons = (element, numOfPages) => {
 		//append li to ul element
 		element.appendChild(li);
 	}
-	showStudents();
+	showStudents(1);
 }
 
 // show students based on which li has the active class
-const showStudents = () => {
-	// get list of li buttons 
-	// loop through and find the active one
-	// check the active button's html number and multiply by 10 = ending number
+const showStudents = (buttonNumber) => {
+	// multiply buttonNumber by 10 = ending number
+	const endStudentIndex = buttonNumber * 10;
+	console.log(endStudentIndex);
 	// ending number -10 = beginning number
+	const beginStudentIndex = endStudentIndex - 10;
+	console.log(beginStudentIndex);
 	// loop through students and show if studen'ts count is between beginning number and ending number
+	for (let i = 0; i < students.length; i++) {
+		if(i >= beginStudentIndex && i < endStudentIndex){
+			const student = students[i];
+			student.style.display = "block";
+		}
+	}
 }
 
-// get the number of pages to make by taking the number of students and dividing by 10
-// if the divide leaves no remainder then make that many pages
-// if there is a remainder round up and make that many pages
-
-
-
-
-const appendPageLinks = (/* take a student list as an argument */) => {
-    // determine how many pages for this student list 
-    // create a page link section
-    // “for” every page
-        // add a page link to the page link section
-    // remove the old page link section from the site
-    // append our new page link section to the site
-    // define what happens when you click a link
-        // Use the showPage function to display the page for the link clicked
-        // mark that link as “active”
-
+// list for click on page button 
+const changePage = () => {
+	// save the element that was clicked on
+	// get list of li buttons
+	// loop through list and find the active one
+	// remove active class
+	// add active class to the element that was clicked
+	// call show students function and pass in button number
 }
 
-const showPage = (/* arguments here for page number and student list */) => {
-	 // first hide all students on the page
-    // Then loop through all students in our student list argument
-       // if student should be on this page number
-       	// show the student
-
-}
 
 
 // when the content has loaded
