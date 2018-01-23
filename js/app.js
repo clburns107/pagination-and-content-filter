@@ -47,10 +47,13 @@ const createPageButtons = (element, numOfPages) => {
 		const a = document.createElement("a");
 		// set first button to default active
 		if(i === 0){
-			a.setAttribute('class', 'active');
+			a.setAttribute('class', 'pageButton active');
+		}else {
+			a.setAttribute('class', 'pageButton');
 		}
-		a.setAttribute('href', '#');
-		a.textContent = i + 1;
+		btnIndex = i+1
+		a.setAttribute('href', "#"+btnIndex);
+		a.textContent = btnIndex;
 		// create li
 		const li = document.createElement("li");
 		// append a to li
@@ -77,11 +80,17 @@ const showStudents = (buttonNumber) => {
 }
 
 // listen for click on page button 
-const changePage = () => {
-	// save the element that was clicked on
-	// get list of li buttons
-	// loop through list and find the active one
-	// remove active class
+const changePage = (activePageNum) => {
+	// get the href of the element that was clicked
+
+	// get list of anchor tags
+	const anchors = document.getElementsByClassName("pageButton");
+	// loop through list and remove active class
+	for (var i=0; i < anchors.length; i++) {
+		const anchor = anchors[i];
+	    anchor.classList.remove("active");
+	};
+
 	// add active class to the element that was clicked
 	// call show students function and pass in button number
 }
@@ -92,6 +101,18 @@ const changePage = () => {
 window.onload = () => {
 	// initial hiding of students
 	hideStudents();
+
+	const anchors = document.getElementsByClassName("pageButton");
+
+	for (var i=0; i < anchors.length; i++) {
+	    anchors[i].onclick = function() {
+	        let activePageNum = this.getAttribute('href').substr(1);
+	        console.log(activePageNum)
+	        changePage(activePageNum);
+	        return false;
+	    };
+	};
+
 }
 
 
