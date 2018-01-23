@@ -7,7 +7,7 @@ const hideStudents = () => {
 		const student = students[i];
 		student.style.display = "none";
 	}
-	calcNumPages();
+	
 }
 
 // calculate number of pages to create
@@ -66,6 +66,7 @@ const createPageButtons = (element, numOfPages) => {
 
 // show students based on active button number
 const showStudents = (buttonNumber) => {
+	hideStudents();
 	// multiply buttonNumber by 10 = ending number
 	const endStudentIndex = buttonNumber * 10;
 	// ending number -10 = beginning number
@@ -92,7 +93,15 @@ const changePage = (activePageNum) => {
 	};
 
 	// add active class to the element that was clicked
+	for (var i=0; i < anchors.length; i++) {
+		const anchor = anchors[i];
+		if(anchor.getAttribute('href').substr(1) === activePageNum){
+			anchor.classList.add("active");
+		}
+	};
+	
 	// call show students function and pass in button number
+	showStudents(activePageNum);
 }
 
 
@@ -100,16 +109,14 @@ const changePage = (activePageNum) => {
 // when the content has loaded
 window.onload = () => {
 	// initial hiding of students
-	hideStudents();
+	calcNumPages();
 
 	const anchors = document.getElementsByClassName("pageButton");
 
 	for (var i=0; i < anchors.length; i++) {
 	    anchors[i].onclick = function() {
 	        let activePageNum = this.getAttribute('href').substr(1);
-	        console.log(activePageNum)
 	        changePage(activePageNum);
-	        return false;
 	    };
 	};
 
