@@ -48,8 +48,8 @@ const createPageButtons = (element, numOfPages) => {
 		// set first button to default active
 		if(i === 0){
 			a.setAttribute('class', 'active');
-			a.setAttribute('href', '#');
 		}
+		a.setAttribute('href', '#');
 		a.textContent = i + 1;
 		// create li
 		const li = document.createElement("li");
@@ -61,15 +61,13 @@ const createPageButtons = (element, numOfPages) => {
 	showStudents(1);
 }
 
-// show students based on which li has the active class
+// show students based on active button number
 const showStudents = (buttonNumber) => {
 	// multiply buttonNumber by 10 = ending number
 	const endStudentIndex = buttonNumber * 10;
-	console.log(endStudentIndex);
 	// ending number -10 = beginning number
 	const beginStudentIndex = endStudentIndex - 10;
-	console.log(beginStudentIndex);
-	// loop through students and show if studen'ts count is between beginning number and ending number
+	// loop through students and show if student's count is between beginning number and ending number
 	for (let i = 0; i < students.length; i++) {
 		if(i >= beginStudentIndex && i < endStudentIndex){
 			const student = students[i];
@@ -78,7 +76,7 @@ const showStudents = (buttonNumber) => {
 	}
 }
 
-// list for click on page button 
+// listen for click on page button 
 const changePage = () => {
 	// save the element that was clicked on
 	// get list of li buttons
