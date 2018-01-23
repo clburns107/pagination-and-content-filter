@@ -1,5 +1,6 @@
 // collect all the students
 const students = document.getElementsByClassName("student-item");
+const anchors = document.getElementsByClassName("pageButton");
 
 // hide students
 const hideStudents = () => {
@@ -80,12 +81,10 @@ const showStudents = (buttonNumber) => {
 	}
 }
 
-// listen for click on page button 
+// remove/add active class based on click
 const changePage = (activePageNum) => {
-	// get the href of the element that was clicked
-
 	// get list of anchor tags
-	const anchors = document.getElementsByClassName("pageButton");
+	
 	// loop through list and remove active class
 	for (var i=0; i < anchors.length; i++) {
 		const anchor = anchors[i];
@@ -110,8 +109,6 @@ const changePage = (activePageNum) => {
 window.onload = () => {
 	// initial hiding of students
 	calcNumPages();
-
-	const anchors = document.getElementsByClassName("pageButton");
 
 	for (var i=0; i < anchors.length; i++) {
 	    anchors[i].onclick = function() {
