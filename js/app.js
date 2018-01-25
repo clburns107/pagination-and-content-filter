@@ -14,14 +14,24 @@ const hideStudents = () => {
 // calculate number of pages to create
 const calcNumPages = () => {
 	let numOfPages;
-	// if dividing the number of students by 10 leaves no remainder
-	if(students.length % 10 === 0){
+	// if number is less than 1 numOfPages is 0
+	if (students.length / 10 < 1) {
+		numOfPages = 0
+		//if dividing the number of students by 10 leaves no remainder use the quotient
+	} else if (students.length % 10 > 1 && students.length % 10 === 0){
 		numOfPages = students.length / 10;
 	} else {
-		// round the pages up
+		// round the quotient up
 		numOfPages = Math.ceil(students.length / 10);
 	}
-	createPaginationDiv(numOfPages);
+
+	// if the number of pages is 0 show all the students
+	if (numOfPages === 0) {
+		showStudents(1);
+	// create pagination div
+	}else {
+		createPaginationDiv(numOfPages);
+	}	
 }
 
 
@@ -62,6 +72,7 @@ const createPageButtons = (element, numOfPages) => {
 		//append li to ul element
 		element.appendChild(li);
 	}
+	// default show first page of students
 	showStudents(1);
 }
 
@@ -83,9 +94,7 @@ const showStudents = (buttonNumber) => {
 
 // remove/add active class based on click
 const changePage = (activePageNum) => {
-	// get list of anchor tags
-	
-	// loop through list and remove active class
+	// loop through anchors and remove active class
 	for (var i=0; i < anchors.length; i++) {
 		const anchor = anchors[i];
 	    anchor.classList.remove("active");
@@ -98,7 +107,6 @@ const changePage = (activePageNum) => {
 			anchor.classList.add("active");
 		}
 	};
-	
 	// call show students function and pass in button number
 	showStudents(activePageNum);
 }
@@ -110,8 +118,10 @@ window.onload = () => {
 	// initial hiding of students
 	calcNumPages();
 
+	// listen for click on pagination buttons
 	for (var i=0; i < anchors.length; i++) {
 	    anchors[i].onclick = function() {
+	    	// get the number from the button that was clicked
 	        let activePageNum = this.getAttribute('href').substr(1);
 	        changePage(activePageNum);
 	    };
